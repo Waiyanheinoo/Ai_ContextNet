@@ -1,0 +1,137 @@
+import { useState } from "react";
+import { Mail, Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
+const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const response = await fetch("http://localhost:8000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        navigate("/login");
+      } else {
+        const data = await response.json();
+        setError(data.detail || "Signup failed");
+      }
+    } catch (err) {
+      setError("Network error during signup");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-900 relative">
+      <div className="absolute top-0 left-0 w-full p-6 z-10">
+        <h1 className="text-3xl font-medium tracking-widest text-gray-400">
+          CONTEXTNET
+        </h1>
+      </div>
+
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="w-full max-w-7xl grid lg:grid-cols-3 gap-16 items-center">
+          {/* Left Side - Branding and CTA */}
+          <div className="lg:col-span-2 text-white space-y-8">
+            <div className="space-y-2">
+              <h2 className="text-5xl lg:text-6xl font-bold leading-tight">
+                TAKE A STEP TOWARD A
+              </h2>
+              <h2 className="text-5xl lg:text-6xl font-bold leading-tight">
+                <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                  BETTER SOCIETY
+                </span>{" "}
+                <span className="text-white">WITH US</span>
+              </h2>
+            </div>
+          </div>
+
+          {/* Right Side - Signup Form */}
+          <div className="space-y-8">
+            <div className="text-center space-y-2">
+              <h3 className="text-4xl lg:text-5xl font-bold">
+                <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                  SIGN
+                </span>{" "}
+                <span className="text-white">UP</span>
+              </h3>
+              <p className="text-gray-400 text-sm">
+                Sign up with{" "}
+                <span className="text-white font-medium">email address</span>
+              </p>
+            </div>
+
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              {/* Email Input */}
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-300" />
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email :"
+                  className="w-full pl-12 pr-4 py-4 bg-gradient-to-r from-purple-600 to-blue-600 border-0 rounded-lg text-white placeholder-gray-200 focus:placeholder-transparent focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300"
+                  required
+                />
+              </div>
+
+              {/* Password Input */}
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Lock className="h-5 w-5 text-gray-300" />
+                </div>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password :"
+                  className="w-full pl-12 pr-4 py-4 bg-gradient-to-r from-purple-600 to-blue-600 border-0 rounded-lg text-white placeholder-gray-200 focus:placeholder-transparent focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300"
+                  required
+                />
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="text-red-400 text-sm text-center">{error}</div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/25 hover:cursor-pointer mt-6"
+              >
+                Sign up
+              </button>
+            </form>
+
+            {/* Login Link */}
+            <div className="text-center pt-4">
+              <p className="text-gray-400 text-sm">
+                Already have an account?{" "}
+                <button
+                  onClick={() => navigate("/login")}
+                  className="text-purple-400 hover:text-purple-300 font-medium underline underline-offset-2 transition-colors duration-200"
+                >
+                  Log in
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SignUp;

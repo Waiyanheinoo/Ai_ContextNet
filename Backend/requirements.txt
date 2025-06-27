@@ -1,0 +1,28 @@
+# Load .env
+python-dotenv>=1.1.0
+
+# Kafka producer/consumer
+confluent-kafka>=2.0.0
+
+# PostgreSQL client
+psycopg2-binary>=2.9.0
+
+# RSS parsing
+feedparser>=6.0.11
+
+# Zero-shot classification (and its deep-learning backend)
+transformers>=4.49.0
+torch>=2.0.0
+
+# spaCy core + transformer support (for EntityRuler & NER)
+spacy>=3.8.0
+spacy[transformers]>=3.8.0
+
+# Geocoding & rate–limiting
+geopy>=2.0.0
+diskcache>=5.0.0
+cachetools>=5.0.0
+
+# HTML → text conversion
+beautifulsoup4>=4.13.0
+lxml>=5.0.0
