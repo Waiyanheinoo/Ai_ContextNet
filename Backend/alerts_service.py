@@ -138,28 +138,6 @@ def list_alerts(
         out.append(rec)
     return out
 
-# @app.get("/alerts/{alert_id}", response_model=AlertOut)
-# def get_alert(alert_id: str, db=Depends(get_db)):
-#     """
-#     Fetch a single alert by its ID.
-#     """
-#     a = db.execute(select(Alert).where(Alert.id == alert_id)).scalar_one_or_none()
-#     if not a:
-#         raise HTTPException(404, detail="Alert not found")
-#     # extract lon/lat
-#     lon = lat = None
-#     if a.geom:
-#         gj = db.execute(
-#             select(ST_AsGeoJSON(text("alerts.geom"))).where(Alert.id == a.id)
-#         ).scalar_one_or_none()
-#         if gj:
-#             c = json.loads(gj)["coordinates"]
-#             lon, lat = c[0], c[1]
-#     rec = AlertOut.from_orm(a).dict()
-#     rec.update({"lon": lon, "lat": lat})
-#     return rec
-
-
 @app.get("/alerts/{new_id}")
 def get_alert(new_id: str, db=Depends(get_db)):
     a = db.execute(select(Alert).where(Alert.new_id == new_id)).scalar_one_or_none()

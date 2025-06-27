@@ -3,12 +3,12 @@ from spacy.pipeline import EntityRuler
 from pathlib import Path
 
 def build_pipeline():
-    nlp = spacy.load("en_core_web_trf")  # or "en_core_web_sm"
+    nlp = spacy.load("en_core_web_trf")
     # 1) register the ruler before ner
     nlp.add_pipe("entity_ruler", before="ner")
     ruler = nlp.get_pipe("entity_ruler")
 
-    # 2) load your weapon terms
+    # 2) load weapon terms
     weapon_patterns = [
         {"label": "WEAPON", "pattern": term}
         for term in Path("weapon_terms.txt").read_text().splitlines()

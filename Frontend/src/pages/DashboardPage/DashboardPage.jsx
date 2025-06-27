@@ -11,7 +11,7 @@ const API_BASE = "http://localhost:8001";
 
 // Enhanced cache with sessionStorage persistence and in-memory fallback
 const inMemoryCache = new Map();
-const CACHE_DURATION = 30 * 60 * 1000;
+const CACHE_DURATION = 5 * 60 * 1000;
 const CACHE_PREFIX = "dashboard_alerts_";
 const TODAY = format(new Date(), "yyyy-MM-dd");
 
@@ -200,6 +200,12 @@ const DashboardPage = () => {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-400">
             Dashboard
           </h1>
+          <button
+            onClick={clearCache}
+            className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors"
+          >
+            Clear Cache
+          </button>
         </div>
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <button

@@ -98,7 +98,6 @@ const AlertTagsList = ({ date, onTagClick }) => {
       });
   }, [alerts]);
 
-  // Now render based on state
   if (error) {
     return (
       <div className="p-6 bg-red-900/80 rounded-xl text-center text-white">

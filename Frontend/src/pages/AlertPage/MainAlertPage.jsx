@@ -9,7 +9,7 @@ const PAGE_SIZE = 7;
 
 // Enhanced cache with sessionStorage persistence and in-memory fallback
 const inMemoryCache = new Map();
-const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes for today's data
+const CACHE_DURATION = 5 * 60 * 1000; // 30 minutes for today's data
 const CACHE_PREFIX = "alerts_page_";
 const TODAY = format(new Date(), "yyyy-MM-dd");
 

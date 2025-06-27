@@ -6,11 +6,11 @@ from pathlib import Path
 import json
 import time
 
-# Build your spaCy pipeline (assuming you’ve fixed nlp_factory)
+# Build spaCy pipeline
 from nlp_factory import build_pipeline
 NLP = build_pipeline()
 
-# 1. Configure Nominatim with a clear user_agent and your email
+# 1. Configure Nominatim
 geolocator = Nominatim(
     user_agent="nlp4safety_news_consumer/1.0 (wailyan.nw.4@gmail.com)",
     timeout=10
